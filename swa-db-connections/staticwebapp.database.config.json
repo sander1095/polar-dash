@@ -1,11 +1,11 @@
 {
-  "$schema": "https://github.com/Azure/data-api-builder/releases/download/v0.8.52/dab.draft.schema.json",
+  "$schema": "https://github.com/Azure/data-api-builder/releases/latest/download/dab.draft.schema.json",
   "data-source": {
     "database-type": "mssql",
-    "connection-string": "@env('DATABASE_CONNECTION_STRING')",
     "options": {
       "set-session-context": false
-    }
+    },
+    "connection-string": "@env('DATABASE_CONNECTION_STRING')"
   },
   "runtime": {
     "rest": {
@@ -13,11 +13,12 @@
       "path": "/rest"
     },
     "graphql": {
+      "allow-introspection": true,
       "enabled": true,
-      "path": "/graphql",
-      "allow-introspection": true
+      "path": "/graphql"
     },
     "host": {
+      "mode": "production",
       "cors": {
         "origins": [
           "http://localhost:4280",
@@ -27,26 +28,18 @@
       },
       "authentication": {
         "provider": "StaticWebApps"
-      },
-      "mode": "production"
+      }
     }
   },
   "entities": {
-    "TriviaQuestion": {
-      "source": {
-        "object": "dbo.TriviaQuestion",
-        "type": "table"
-      },
-      "graphql": true,
-      "rest": true,
+    "Person": {
+      "source": "dbo.MyTestPersonTable",
       "permissions": [
         {
-          "role": "anonymous",
           "actions": [
-            {
-              "action": "read"
-            }
-          ]
+            "*"
+          ],
+          "role": "anonymous"
         }
       ]
     }
