@@ -41,12 +41,10 @@
       "rest": true,
       "permissions": [
         {
-          "role": "anonymous",
           "actions": [
-            {
-              "action": "read"
-            }
-          ]
+            "*"
+          ],
+          "role": "anonymous"
         }
       ]
     }
